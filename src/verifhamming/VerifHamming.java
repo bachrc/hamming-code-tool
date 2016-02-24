@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 public class VerifHamming extends JFrame {
 	
 	public JTextField code;
+	private DisplayPane dp;
 	
 	public VerifHamming() {
 		this.setTitle("Générateur Hamming");
@@ -31,7 +32,7 @@ public class VerifHamming extends JFrame {
 		gbc.gridheight = 1;
 		gbc.gridwidth = 1;
 		gbc.insets = new Insets(5,3,5,3);
-		this.add(new JLabel("Entrez le signal reçu :"), gbc);
+		this.add(new JLabel("Entrez le mot concerné :"), gbc);
 		
 		gbc.gridx = 1;
 		gbc.weightx = 1.;
@@ -48,6 +49,12 @@ public class VerifHamming extends JFrame {
 		gbc.gridx = 1;
 		this.add(new JButton(new VerifyCode()), gbc);
 		
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		gbc.gridwidth = 2;
+		this.dp = new DisplayPane();
+		this.add(this.dp, gbc);
+		
 		pack();
 		this.setLocation(420, 420);
 		this.setVisible(true);
@@ -61,7 +68,7 @@ public class VerifHamming extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+			dp.refreshPane();
 		}
 	}
 	
@@ -72,7 +79,7 @@ public class VerifHamming extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+			dp.refreshPane();
 		}
 	}
 	
