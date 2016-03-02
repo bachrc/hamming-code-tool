@@ -5,6 +5,7 @@
 package verifhamming;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Hamming {
 	public static boolean verifyWord(String word) throws Exception {
@@ -16,10 +17,25 @@ public class Hamming {
 			throw new Exception("Mot de longueur invalide.");
 		
         // Définition de la portée des bits de controle
+        int[] control = new int[n];
         
-        for(int c = 0; c < n; c++) {
-            System.out.println("Pour le bit de controle c" + c + " : \n" + bitsControled(c, n));
-        }
+        for(int c = 0; c < n; c++) 
+            for (Integer i : bitsControled(c, n)) 
+                try {
+                    int endroit = (int)Math.pow(2, n) - i - 1;
+                    control[c] = (control[c] + Character.getNumericValue(word.charAt(endroit))) % 2;  
+                } catch(Exception e) {
+                    e.printStackTrace();
+                    throw new Exception("Caractère invalide à l'indice " + i);
+                }
+        
+        System.out.println(Arrays.toString(control));
+        int indiceRetour = 0;
+        for(int i = 0; i < n; i++) 
+            indiceRetour += control[i] * Math.pow(2, i);
+        
+        if(indiceRetour != 0)
+            throw new InvalidWordException(word, indiceRetour);
         
 		return true;
 	}
