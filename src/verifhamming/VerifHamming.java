@@ -68,7 +68,7 @@ public class VerifHamming extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			dp.refreshPane();
+			//dp.refreshPane();
 		}
 	}
 	
@@ -79,7 +79,13 @@ public class VerifHamming extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			dp.refreshPane();
+			try {
+				if(Hamming.verifyWord(code.getText()))
+					dp.refreshPane("Il est bien.");
+			}catch(Exception ex) {
+				dp.refreshPane("C'est pas bien : " + ex.getMessage());
+			}
+		
 		}
 	}
 	
