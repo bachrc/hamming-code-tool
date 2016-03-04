@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package verifhamming;
 
 import java.awt.GridBagConstraints;
@@ -61,6 +56,9 @@ public class VerifHamming extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
+    /**
+     * Action gérant le bouton de génération d'un code de Hamming
+     */
 	public class GenerateCode extends AbstractAction {
 		public GenerateCode() {
 			super("Générer mot");
@@ -72,6 +70,9 @@ public class VerifHamming extends JFrame {
 		}
 	}
 	
+    /**
+     * Action gérant le bouton de vérification du code de Hamming renseigné.
+     */
 	public class VerifyCode extends AbstractAction {
 		public VerifyCode() {
 			super("Vérifier mot");
@@ -81,9 +82,19 @@ public class VerifHamming extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			try {
 				if(Hamming.verifyWord(code.getText()))
-					dp.refreshPane("Il est bien.");
-			}catch(Exception ex) {
-				dp.refreshPane("C'est pas bien : " + ex.getMessage());
+					dp.refreshPane("Le mot est correct et valide.");
+			} catch(InvalidWordException iwe) {
+                String mot = "<center><p><h2>Le mot n'est pas valide.</h2></p><p><big><big>";
+                
+                for(int i=0; i < iwe.word.length(); i++) 
+                    mot += (i == iwe.indice) ? ("<font color=\"red\">" + iwe.word.charAt(i) + "</font>") : iwe.word.charAt(i);
+                
+                mot += "</big></big></p></center>";
+                
+                dp.refreshPane(mot);
+                
+            } catch(Exception ex) {
+				dp.refreshPane("<font color=\"red\">Erreur</font> : " + ex.getMessage());
 			}
 		
 		}

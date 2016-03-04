@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package verifhamming;
 
 import java.awt.Dimension;
@@ -19,6 +14,9 @@ public class DisplayPane extends JPanel {
 	
 	JLabel message;
 	
+    /**
+     * Constructeur du Panel d'affichage des résultats.
+     */
 	public DisplayPane() {
 		this.message = new JLabel();
 		TitledBorder title;
@@ -27,11 +25,16 @@ public class DisplayPane extends JPanel {
 		this.add(message);
 	}
 	
+    /**
+     * Rafraichit le panel avec pour contenu la chaîne passée en paramètre.
+     * @param result La chaine avec laquelle rafraichir le panel
+     */
 	public void refreshPane(String result) {
-		this.message.setText(result);
+		this.message.setText("<html>" + result + "</html>");
 	}
 	
+    @Override
 	public Dimension getPreferredSize() {
 		return new Dimension(420,200);
-	}
+	} 
 }
