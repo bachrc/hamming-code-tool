@@ -66,7 +66,11 @@ public class VerifHamming extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//dp.refreshPane();
+			try {
+				dp.refreshPane("Le code est : " + Hamming.generateWord(code.getText()));
+			} catch(Exception ex) {
+				dp.refreshPane("<font color=\"red\">Erreur</font> : " + ex.getMessage());
+			}
 		}
 	}
 	
