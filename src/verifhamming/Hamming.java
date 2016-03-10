@@ -67,21 +67,21 @@ public class Hamming {
 	public static String generateWord(String word) throws Exception {
 		// Vérifie la longueur du mot
 		int n = 1;
-		while ((Math.pow(2, n) - 1 - n) < word.length()) {
-			n++;
-		}
+		while ((Math.pow(2, n) - 1 - n) < word.length()) n++;
 
-		if (Math.pow(2, n) - 1 - n != word.length()) {
-			throw new Exception("Mot de longueur invalide : " + word.length());
-		}
-
+		// S'il n'est pas à la bonne longueur, on l'étend de zéros afin qu'il fasse la bonne taille.
+		if (Math.pow(2, n) - 1 - n != word.length()) 
+			word = String.format("%" + (int)(Math.pow(2, n) - 1 - n) + "s", word).replace(' ', '0');
+		
 		StringBuilder mot = new StringBuilder(word);
-
+		
+		// On ajoute des bits de contrôle nuls aux bons endroits
 		for (int c = 0; c < n; c++) {
 			int endroit = mot.length() - (int) Math.pow(2, c) + 1;
 			mot.insert(endroit, '0');
 		}
 		
+		// Et on adapte la valeur de tous ces bits de controle.
 		for (int c = 0; c < n; c++) {
 			int valeur = 0;
 			for (Integer i : bitsControled(c, n)) {
